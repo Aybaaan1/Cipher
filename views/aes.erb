@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AES Cipher</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Orbitron', sans-serif;
+      background: #0d0f20;
+      color: #eee;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: auto;
+    }
+
+    .game-container {
+      width: 90%;
+      max-width: 600px;
+      background-image: url('https://4kwallpapers.com/images/walls/thumbs_2t/10307.jpg');
+      border-radius: 12px;
+      border: 2px solid #00ff00;
+      box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+      padding: 15px;
+      overflow: hidden;
+      background-color: rgba(0, 0, 0, 0.8);
+    }
+
+    .game-title {
+      font-size: 1.8em;
+      color: #00ff00;
+      text-shadow: 0 0 8px #00ff00, 0 0 16px #00ff00;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    input[type="text"], select {
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #00ff00;
+      background: #222;
+      color: #eee;
+      font-size: 0.9em;
+    }
+
+    input[type="text"]:focus, select:focus {
+      outline: none;
+      border-color: #00ff80;
+    }
+
+    label {
+      font-size: 0.9em;
+      color: #00ff80;
+    }
+
+    .form-group {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .form-group div {
+      flex: 1;
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    button {
+      padding: 8px 16px;
+      font-size: 0.9em;
+      border: none;
+      border-radius: 6px;
+      background: linear-gradient(145deg, #1a1a1a, #2e2e2e);
+      color: #00ff00;
+      box-shadow: inset 0 0 5px rgba(0, 255, 0, 0.4), 0 0 10px rgba(0, 255, 0, 0.8);
+      cursor: pointer;
+      outline: none;
+      transition: transform 0.2s ease, box-shadow 0.3s ease;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: inset 0 0 8px rgba(0, 255, 0, 0.6), 0 0 12px rgba(0, 255, 0, 1);
+    }
+
+    button:active {
+      transform: scale(1);
+    }
+
+    a {
+      color: #00ff00;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 12px;
+      text-align: center;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+  <div class="game-container">
+    <h1 class="game-title">AES Cipher</h1>
+    <form method="post" action="/aesresult">
+      <label for="text">Input Text:</label>
+      <input type="text" id="text" name="text" placeholder="Enter text here..." required>
+
+      <label for="key">Secret Key:</label>
+      <input type="text" id="key" name="key" placeholder="Secret Key" required>
+
+      <div class="form-group">
+        <div>
+          <label for="key_size">Encryption Key Size:</label>
+          <select id="key_size" name="key_size">
+            <option value="128">128 Bits</option>
+            <option value="192">192 Bits</option>
+            <option value="256">256 Bits</option>
+          </select>
+        </div>
+        <div>
+          <label for="mode">Encryption Mode:</label>
+          <select id="mode" name="mode">
+            <option value="CBC">CBC</option>
+            <option value="ECB">ECB</option>
+          </select>
+        </div>
+      </div>
+
+      <label for="iv">IV (only for CBC mode):</label>
+      <input type="text" id="iv" name="iv" placeholder="Optional IV value">
+
+      <label for="format">Output/Input Format:</label>
+      <select id="format" name="format">
+        <option value="Base64">Base64</option>
+        <option value="HEX">HEX</option>
+      </select>
+
+      <div class="button-container">
+        <button type="submit" name="action" value="encrypt">Encrypt</button>
+        <button type="submit" name="action" value="decrypt">Decrypt</button>
+      </div>
+
+      <a href="/">Back to Home</a>
+    </form>
+  </div>
+</body>
+</html>

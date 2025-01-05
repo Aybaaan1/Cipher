@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Double Columnar Cipher Result</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Orbitron', sans-serif;
+      background: #0d0f20;
+      color: #eee;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+button {
+      padding: 12px 20px;
+      font-size: 1.2em;
+      border: none;
+      border-radius: 8px;
+      background: linear-gradient(145deg, #1a1a1a, #2e2e2e);
+      color: #00ff00;
+      box-shadow: inset 0 0 5px rgba(0, 255, 0, 0.4), 0 0 15px rgba(0, 255, 0, 0.8);
+      cursor: pointer;
+      outline: none;
+      transition: all 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+ a {
+      display: block;
+      margin-top: 20px;
+      color: #00ff00;
+      font-size: 1.1em;
+      text-decoration: none;
+      text-shadow: 0 0 10px #00ff00;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+    .game-container {
+      width: 90%;
+      max-width: 1200px;
+      background-image: url('https://4kwallpapers.com/images/walls/thumbs_2t/10307.jpg');
+      border-radius: 12px;
+      border: 2px solid #00ff00;
+      box-shadow: 0 0 30px rgba(0, 255, 0, 0.5);
+      text-align: center;
+      padding: 20px;
+      position: relative;
+    }
+
+    .game-title {
+      font-size: 2.5rem;
+      color: #00ff00;
+      text-shadow: 0 0 15px #00ff00, 0 0 30px #00ff00;
+      margin-bottom: 20px;
+    }
+
+    .table-container {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    table {
+      width: 45%; /* Adjust table size */
+      border-collapse: collapse;
+      background-color: #fff;
+      color: #333;
+      border: 1px solid #ccc;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      font-size: 0.9rem;
+      text-align: center;
+    }
+
+    table th, table td {
+      padding: 8px 10px; /* Smaller padding */
+      border: 1px solid #ddd;
+    }
+
+    table th {
+      background-color: #f4f4f4;
+      color: #555;
+      font-weight: bold;
+      font-size: 1rem;
+    }
+
+    table caption {
+      margin-bottom: 10px;
+      font-size: 1rem;
+      color: #555;
+      font-weight: bold;
+    }
+    #result{
+        font-size: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="game-container">
+    <h1 class="game-title">Cipher Result</h1>
+    <div class="table-container">
+       
+      <% if @table_steps1 %>
+        <table>
+          <caption>(Key 1)</caption>
+          <thead>
+            <tr>
+              <% # Create an array of the key characters with their original indices %>
+              <% original_order1 = @key1.chars.each_with_index.to_a %>
+              <% # Sort this array alphabetically by character %>
+              <% sorted_order1 = original_order1.sort_by { |char, _| char } %>
+              <% # Map the sorted array to show the new position based on alphabetical order %>
+              <% sorted_positions1 = sorted_order1.each_with_index.map { |(char, index), i| [char, i + 1] }.to_h %>
+
+              <% # Display the original key characters with the new positions based on sorted order %>
+              <% @key1.chars.each do |char| %>
+                <th><%= "#{char} (#{sorted_positions1[char]})" %></th>
+              <% end %>
+            </tr>
+          </thead>
+          <tbody>
+            <% @table_steps1.each do |row| %>
+              <tr>
+                <% row.each do |cell| %>
+                  <td><%= cell.nil? ? '&nbsp;' : cell %></td>
+                <% end %>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <% else %>
+        <p>Grid Step 1 (Key 1) not generated.</p>
+      <% end %>
+
+      <h2 id="result"><%= @result %></h2>
+      
+      <% if @table_steps2 %>
+        <table>
+          <caption>(Key 2)</caption>
+          <thead>
+            <tr>
+              <% # Create an array of the key characters with their original indices %>
+              <% original_order2 = @key2.chars.each_with_index.to_a %>
+              <% # Sort this array alphabetically by character %>
+              <% sorted_order2 = original_order2.sort_by { |char, _| char } %>
+              <% # Map the sorted array to show the new position based on alphabetical order %>
+              <% sorted_positions2 = sorted_order2.each_with_index.map { |(char, index), i| [char, i + 1] }.to_h %>
+
+              <% # Display the original key characters with the new positions based on sorted order %>
+              <% @key2.chars.each do |char| %>
+                <th><%= "#{char} (#{sorted_positions2[char]})" %></th>
+              <% end %>
+            </tr>
+          </thead>
+          <tbody>
+            <% @table_steps2.each do |row| %>
+              <tr>
+                <% row.each do |cell| %>
+                  <td><%= cell.nil? ? '&nbsp;' : cell %></td>
+                <% end %>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <% else %>
+        <p>Grid Step 2 (Key 2) not generated.</p>
+      <% end %>
+    </div>
+  <a href="<%= @back_link %>">Back</a>  
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Single Columnar Result</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+  <style>
+   body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Orbitron', sans-serif;
+      background: #0d0f20;
+      color: #eee;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .game-container {
+      width: 65%;
+      height: auto;
+      max-width: 1200px;
+      background-image: url('https://4kwallpapers.com/images/walls/thumbs_2t/10307.jpg');
+      border-radius: 12px;
+      border: 2px solid #00ff00;
+      box-shadow: 0 0 30px rgba(0, 255, 0, 0.5);
+      text-align: center;
+      padding: 40px;
+      position: relative;
+      overflow: hidden;
+      animation: fadeIn 1s ease-in-out;
+      z-index: 1;
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(-20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .game-title {
+      font-size: 4em;
+      color: #00ff00;
+      text-shadow: 0 0 15px #00ff00, 0 0 30px #00ff00;
+      margin-bottom: 20px;
+      animation: pulse 1.5s infinite;
+    }
+    #pfresult{
+        color:white;
+         font-size: 3em;
+    }
+
+    @keyframes pulse {
+      0%, 100% { text-shadow: 0 0 15px #00ff00, 0 0 30px #00ff00; }
+      50% { text-shadow: 0 0 30px #00ff00, 0 0 50px #00ff00; }
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    input[type="text"],
+    input[type="number"] {
+      padding: 10px;
+      width: 250px;
+      border: 1px solid #00ff00;
+      border-radius: 8px;
+      background: #222;
+      color: #eee;
+      font-size: 1em;
+    }
+
+    input[type="text"]:focus,
+    input[type="number"]:focus {
+      outline: none;
+      border-color: #00ff80;
+    }
+
+    .button-container {
+      display: flex;
+      gap: 20px;
+    }
+
+    button {
+      padding: 12px 20px;
+      font-size: 1.2em;
+      border: none;
+      border-radius: 8px;
+      background: linear-gradient(145deg, #1a1a1a, #2e2e2e);
+      color: #00ff00;
+      box-shadow: inset 0 0 5px rgba(0, 255, 0, 0.4), 0 0 15px rgba(0, 255, 0, 0.8);
+      cursor: pointer;
+      outline: none;
+      transition: all 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    button::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(0, 255, 0, 0.3);
+      transform: translate(-50%, -50%);
+      transition: all 0.3s ease-in-out;
+      z-index: -1;
+    }
+
+    button:hover::before {
+      width: 300%;
+      height: 300%;
+    }
+
+    button:hover {
+      transform: scale(1.1) rotate(2deg);
+      box-shadow: inset 0 0 10px rgba(0, 255, 0, 0.6), 0 0 25px rgba(0, 255, 0, 1);
+    }
+
+    button:active {
+      background: linear-gradient(145deg, #2e2e2e, #1a1a1a);
+      box-shadow: inset 0 0 15px rgba(0, 255, 0, 0.8);
+      transform: scale(1) rotate(0deg);
+    }
+
+    a {
+      display: block;
+      margin-top: 20px;
+      color: #00ff00;
+      font-size: 1.1em;
+      text-decoration: none;
+      text-shadow: 0 0 10px #00ff00;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+   #result{
+    font-size: 3rem;
+   }
+   table {
+      margin: 0 auto; /* Center the table */
+      width: 40%; /* Compact table size */
+      border-collapse: collapse;
+      background-color: #fff; /* White table background */
+      color: #333; /* Formal text color */
+      border: 1px solid #ccc; /* Subtle border */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      overflow: hidden;
+      font-size: 1rem;
+      text-align: center;
+    }
+
+    table th, table td {
+      padding: 12px 15px;
+      border: 1px solid #ddd; /* Subtle grid lines */
+    }
+
+    table th {
+      background-color: #f4f4f4; /* Light header background */
+      color: #555; /* Slightly darker text for contrast */
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+
+    table tr:nth-child(even) {
+      background-color: #f9f9f9; /* Light gray for even rows */
+    }
+
+    table tr:nth-child(odd) {
+      background-color: #fff; /* White for odd rows */
+    }
+
+    table tr:hover {
+      background-color: #f1f1f1; /* Slightly darker gray on hover */
+      transition: background-color 0.2s ease-in-out;
+    }
+
+    table caption {
+      margin-bottom: 10px;
+      font-size: 1.2rem;
+      color: #555;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="game-container">
+   <h1 class="game-title">Cipher Result</h1>
+    <div class="result-text">
+        <h2 id="result"><%= @result %></h2>
+
+  <table>
+    <caption>Grid Step 1 (Key 1)</caption>
+    <thead>
+         
+      <tr>
+       <% # Get the sorted order of the key based on the alphabetical sequence of the characters %>
+<% sorted_order = @key.chars.each_with_index.sort_by { |char, _| char }.map { |char, index| index + 1 } %>
+
+<% # Display each character in the original key with its position in the sorted order %>
+<% @key.chars.each_with_index do |char, original_index| %>
+  <th><%= "#{char} (#{sorted_order[original_index]})" %></th>
+<% end %>
+    </thead>
+    <tbody>
+  <% @table_steps.each_with_index do |row, row_index| %>
+        <tr>
+          <% row.each_with_index do |cell, col_index| %>
+             <td style="text-align: center;"><%= cell.nil? ? '&nbsp;' : cell %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+
+  <a href="<%= @back_link %>">Back</a>  
+</body>
+</html>
